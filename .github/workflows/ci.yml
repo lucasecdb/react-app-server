@@ -26,7 +26,7 @@ jobs:
       env:
         CI: true
 
-  test:
+  testIntegration:
 
     runs-on: ubuntu-latest
 
@@ -45,7 +45,15 @@ jobs:
         yarn lerna exec 'yarn link'
         yarn --silent lerna ls | xargs yarn link
     - name: Run tests
-      run: yarn test
+      run: yarn test --rootDir test/integration
+      env:
+        CI: true
+
+  testScreenshots:
+    - uses: actions/checkout@v1
+    - name: Run tests
+      run: |
+        docker run --rm -v `pwd`:/app -w /app node /bin/bash ./run-screenshot-tests.sh
       env:
         CI: true
 

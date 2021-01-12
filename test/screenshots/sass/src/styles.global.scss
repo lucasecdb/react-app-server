@@ -1,0 +1,9 @@
+@use "sass:color";
+
+$bg-color: #000;
+$my-color: color.change($bg-color, $lightness: 100%);
+
+.my-class {
+  color: $my-color;
+  background-color: $bg-color;
+}
